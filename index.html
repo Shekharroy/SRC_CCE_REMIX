@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var ownDesc = Object.getOwnPropertyDescriptor(window, 'fetch');
+          var protoDesc =
+            typeof Window !== 'undefined' && Window.prototype
+              ? Object.getOwnPropertyDescriptor(Window.prototype, 'fetch')
+              : null;
+          var desc = ownDesc || protoDesc;
+          if (desc && desc.get && !desc.set && (!ownDesc || ownDesc.configurable)) {
+            var nativeFetch = window.fetch.bind(window);
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function () {
+                return nativeFetch;
+              },
+              set: function () {},
+            });
+          }
+        } catch (_) {}
+
+        window.addEventListener(
+          'error',
+          function (event) {
+            var msg = (event && event.message) || '';
+            var src = (event && event.filename) || '';
+            if (
+              src.indexOf('chrome-extension://') === 0 ||
+              msg.indexOf('Cannot set property fetch of #<Window>') !== -1
+            ) {
+              event.preventDefault();
+              event.stopImmediatePropagation();
+            }
+          },
+          true
+        );
+      })();
+    </script>
+    <title>SRC CCE Analytics — Dealership Enquiry & CRM Reporting</title>
+    <meta
+      name="description"
+      content="Multi-format CRM and dealership enquiry report generator with DSE follow-ups, Principle Model analytics, CRM Chandrashekhar Kumar call & conversion logs, Counter-wise summaries, Excel export, and SRC_CCE database storage."
+    />
+    <meta property="og:title" content="SRC CCE Analytics — Dealership Enquiry & CRM Reporting" />
+    <meta
+      property="og:description"
+      content="Generate DSE Today Follow-up, Principle Model Wise, CRM Chandrashekhar Kumar Call & Conversion, and Counter Wise Enquiry Excel reports from CSV, Excel, Text, and Images."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

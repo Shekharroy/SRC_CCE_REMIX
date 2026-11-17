@@ -1,0 +1,8 @@
+{
+  "name": "Remix SRC CCE Analytics",
+  "description": "Multi-format CRM and dealership enquiry report generator with DSE follow-ups, Principle Model analytics, CRM Chandrashekhar Kumar call \u0026 conversion logs, Counter-wise summaries, Excel export, and SRC_CCE database storage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
